@@ -41,20 +41,16 @@ INSTALLED_APPS = [
     
     # Third-party apps
     'rest_framework',
-    'corsheaders',  # CORS Headers for cross-origin requests
-    'rest_framework.authtoken',  # Enable Token Authentication
-    # 'django.contrib.gis',
+    'corsheaders',
+    'rest_framework.authtoken',
     'django_filters',
 
-    # Installed custom apps
+    # Custom apps
     'usermanagement',
-
 ]
 
-# GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal304.dll'  # Use the correct path
-
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Add this before 'CommonMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # added for static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -104,14 +100,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# postgresql://neondb_owner:npg_uUiOPzVj51La@ep-square-rice-a1cwqlbt-pooler.ap-southeast-1.aws.neon.tech/workforce360?sslmode=require
-
-# --------------------------
-# Supabase Database
-# --------------------------
-
-
-
 
 
 # Password validation
@@ -137,58 +125,35 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-# TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'  # Ensure this line is already there
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this line
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 自定义用户模型
+# Custom user model
 AUTH_USER_MODEL = 'usermanagement.User'
 
-# New added things
-
+# CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',  # for local development
-    'https://salarybook.panamach.com',
-    'https://salary-book.onrender.com',
+    'http://localhost:8000',
+    'http://localhost:3000',  # for React development
+    'http://127.0.0.1:8000',
 ]
-CSRF_TRUSTED_ORIGINS = ['https://salary-book.onrender.com']
 
-
-# FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'credentials', 'firebase_service_account.json')
-
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-#         'LOCATION': 'unique-snowflake',
-#     }
-# }
-
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://127.0.0.1:6379/1',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#         }
-#     }
-# }
-
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]

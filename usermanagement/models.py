@@ -4,55 +4,55 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     """
-    扩展的用户模型 - 适用于学生电子学习平台
+    Extended user model for student e-learning platform
     """
     USER_TYPE_CHOICES = [
-        ('student', '学生'),
-        ('teacher', '教师'),
-        ('admin', '管理员'),
+        ('student', 'Student'),
+        ('teacher', 'Teacher'),
+        ('admin', 'Administrator'),
     ]
     
     user_type = models.CharField(
         max_length=10, 
         choices=USER_TYPE_CHOICES, 
         default='student',
-        verbose_name='用户类型'
+        verbose_name='User Type'
     )
     phone = models.CharField(
         max_length=15, 
         blank=True, 
         null=True,
-        verbose_name='电话号码'
+        verbose_name='Phone Number'
     )
     avatar = models.URLField(
         blank=True, 
         null=True,
-        verbose_name='头像链接'
+        verbose_name='Avatar URL'
     )
     is_verified = models.BooleanField(
         default=False,
-        verbose_name='是否已验证'
+        verbose_name='Is Verified'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='创建时间'
+        verbose_name='Created At'
     )
     updated_at = models.DateTimeField(
         auto_now=True,
-        verbose_name='更新时间'
+        verbose_name='Updated At'
     )
     
     def __str__(self):
         return f"{self.username} ({self.get_user_type_display()})"
     
     class Meta:
-        verbose_name = '用户'
-        verbose_name_plural = '用户管理'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
 
 class StudentProfile(models.Model):
     """
-    学生档案信息
+    Student profile information
     """
     user = models.OneToOneField(
         User, 
@@ -62,35 +62,35 @@ class StudentProfile(models.Model):
     student_id = models.CharField(
         max_length=20, 
         unique=True,
-        verbose_name='学号'
+        verbose_name='Student ID'
     )
     grade = models.CharField(
         max_length=50,
         blank=True,
-        verbose_name='年级'
+        verbose_name='Grade'
     )
     major = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name='专业'
+        verbose_name='Major'
     )
     enrollment_date = models.DateField(
         null=True, 
         blank=True,
-        verbose_name='入学日期'
+        verbose_name='Enrollment Date'
     )
     
     def __str__(self):
         return f"{self.user.username} - {self.student_id}"
     
     class Meta:
-        verbose_name = '学生档案'
-        verbose_name_plural = '学生档案管理'
+        verbose_name = 'Student Profile'
+        verbose_name_plural = 'Student Profiles'
 
 
 class TeacherProfile(models.Model):
     """
-    教师档案信息
+    Teacher profile information
     """
     user = models.OneToOneField(
         User, 
@@ -100,27 +100,27 @@ class TeacherProfile(models.Model):
     employee_id = models.CharField(
         max_length=20, 
         unique=True,
-        verbose_name='工号'
+        verbose_name='Employee ID'
     )
     department = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name='所属部门'
+        verbose_name='Department'
     )
     specialization = models.CharField(
         max_length=200,
         blank=True,
-        verbose_name='专业领域'
+        verbose_name='Specialization'
     )
     hire_date = models.DateField(
         null=True, 
         blank=True,
-        verbose_name='入职日期'
+        verbose_name='Hire Date'
     )
     
     def __str__(self):
         return f"{self.user.username} - {self.employee_id}"
     
     class Meta:
-        verbose_name = '教师档案'
-        verbose_name_plural = '教师档案管理'
+        verbose_name = 'Teacher Profile'
+        verbose_name_plural = 'Teacher Profiles'
